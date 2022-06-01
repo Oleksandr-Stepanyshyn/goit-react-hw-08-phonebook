@@ -16,18 +16,19 @@ export const ContactsForm = () => {
           Name
           <input
             type="text"
-            name="name"
-            {...register('name', { required: 'This is required' })}
+            {...register('name', { required: 'Name is required' })}
             placeholder="Name"
           />
         </label>
+        {errors.name?.message === 'Name is required' && (
+          <p>{errors.name?.message}</p>
+        )}
         <label htmlFor="number">
           Number
           <input
             type="text"
-            name="number"
             {...register('number', {
-              required: 'This is required',
+              required: 'Number is required',
               minLength: { value: 7, message: 'Min length is 7' },
               maxLength: { value: 13, message: 'Max length is 13' },
               pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/,
@@ -35,6 +36,9 @@ export const ContactsForm = () => {
             placeholder="Phone number"
           />
         </label>
+        {errors.name?.message === 'Number is required' && (
+          <p>{errors.name?.message}</p>
+        )}
         <button type="submit">Add contact</button>
       </form>
     </>

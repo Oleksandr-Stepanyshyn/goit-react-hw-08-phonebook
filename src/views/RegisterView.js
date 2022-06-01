@@ -37,7 +37,6 @@ export default function RegisterView() {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
-  console.log(errors);
 
   const onSubmit = data => {
     dispatch(authOperations.register(data));

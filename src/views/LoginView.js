@@ -1,19 +1,16 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authOperations } from 'redux/auth';
+import { useForm } from 'react-hook-form';
 
 function Copyright(props) {
   return (
@@ -24,29 +21,26 @@ function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        PhoneBook
-      </Link>{' '}
-      {new Date().getFullYear()}
+      PhoneBook {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
 
-const theme = createTheme();
-
 export default function LoginView() {
+  const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const user = {
-      email: data.get('email'),
-      password: data.get('password'),
-    };
-    console.log(user);
-    dispatch(authOperations.logIn(user));
+  const onSubmit = data => {
+    // event.preventDefault();
+    // const data = new FormData(event.currentTarget);
+    // const user = {
+    //   email: data.get('email'),
+    //   password: data.get('password'),
+    // };
+    // console.log(user);
+    dispatch(authOperations.logIn(data));
+    reset();
   };
 
   return (
@@ -67,7 +61,12 @@ export default function LoginView() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          sx={{ mt: 1 }}
+        >
           <TextField
             margin="normal"
             required
@@ -77,6 +76,7 @@ export default function LoginView() {
             name="email"
             autoComplete="email"
             autoFocus
+            {...register('email', { required: 'this field required' })}
           />
           <TextField
             margin="normal"
@@ -87,10 +87,7 @@ export default function LoginView() {
             type="password"
             id="password"
             autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            {...register('password', { required: 'this field required' })}
           />
           <Button
             type="submit"
@@ -101,15 +98,8 @@ export default function LoginView() {
             Login
           </Button>
           <Grid container justifyContent="flex-end">
-            {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Register"}
-              </Link>
+              <Link to="/register">{"Don't have an account? Register"}</Link>
             </Grid>
           </Grid>
         </Box>

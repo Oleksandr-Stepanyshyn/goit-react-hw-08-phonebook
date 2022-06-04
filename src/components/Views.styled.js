@@ -24,6 +24,7 @@ export const Container = styled.div`
 
 export const ContactsContainer = styled.div`
   margin-bottom: 16px;
+
   @media screen and (min-width: 768px) {
     display: flex;
   }

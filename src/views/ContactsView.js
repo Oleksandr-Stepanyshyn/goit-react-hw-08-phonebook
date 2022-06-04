@@ -11,11 +11,9 @@ export default function ContactsView() {
       <Container>
         <ContactsContainer>
           {screenWidth < 768 ? (
-            <BasicModal textBtn={'Add contact'}>
-              <ContactsForm />
-            </BasicModal>
+            <BasicModal textBtn={'Add contact'} />
           ) : (
-            <ContactsForm />
+            <ContactsForm textBtn={'Add contact'} />
           )}
           <ContactsList />
         </ContactsContainer>

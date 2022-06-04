@@ -13,7 +13,6 @@ export const Contact = styled.a`
     justify-content: flex-start;
   }
 `;
-
 export const Name = styled.h4`
   /* color: #1976d2; */
 `;

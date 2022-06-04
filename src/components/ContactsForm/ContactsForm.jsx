@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
@@ -63,7 +64,7 @@ const style = {
   },
 };
 
-export const ContactsForm = () => {
+export const ContactsForm = ({ textBtn, handleClose }) => {
   const {
     register,
     handleSubmit,
@@ -76,7 +77,9 @@ export const ContactsForm = () => {
 
   const onSubmit = data => {
     addContact(data);
+
     reset();
+    handleClose();
   };
 
   return (
@@ -122,11 +125,16 @@ export const ContactsForm = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Add contact
+              {textBtn}
             </Button>
           </Grid>
         </Box>
       </Container>
     </ThemeProvider>
   );
+};
+
+ContactsForm.propTypes = {
+  textBtn: PropTypes.string.isRequired,
+  handleClose: PropTypes.func,
 };

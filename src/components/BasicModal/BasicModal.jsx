@@ -1,4 +1,3 @@
-import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
+import { ContactsForm } from 'components/ContactsForm/ContactsForm';
 
 const theme = createTheme({
   breakpoints: {
@@ -32,8 +33,8 @@ const style = {
   boxShadow: 24,
 };
 
-export default function BasicModal({ textBtn, children }) {
-  const [open, setOpen] = React.useState(false);
+export default function BasicModal({ textBtn }) {
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -66,7 +67,7 @@ export default function BasicModal({ textBtn, children }) {
           >
             {textBtn}
           </Typography>
-          {children}
+          <ContactsForm handleClose={handleClose} textBtn={textBtn} />
         </Box>
       </Modal>
     </ThemeProvider>
@@ -75,5 +76,4 @@ export default function BasicModal({ textBtn, children }) {
 
 BasicModal.propTypes = {
   textBtn: PropTypes.string.isRequired,
-  children: PropTypes.element,
 };

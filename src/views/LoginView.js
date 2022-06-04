@@ -106,7 +106,15 @@ export default function LoginView() {
           >
             Login
           </Button>
-          <Grid container justifyContent="flex-end">
+          <Grid
+            container
+            justifyContent="flex-end"
+            sx={{
+              '&:hover': {
+                color: '#1976d2',
+              },
+            }}
+          >
             <Grid item>
               <Link to="/register">{"Don't have an account? Register"}</Link>
             </Grid>

@@ -19,6 +19,10 @@ export const register = createAsyncThunk('auth/register', async credentials => {
     token.set(data.token);
     return data;
   } catch (error) {
+    toast.error(`${error.message}`, {
+      position: 'top-center',
+      autoClose: 3000,
+    });
     console.log('error', error);
   }
 });
@@ -42,6 +46,10 @@ export const logOut = createAsyncThunk('auth/logout', async () => {
     await axios.post('/users/logout');
     token.unset();
   } catch (error) {
+    toast.error(`${error.message}`, {
+      position: 'top-center',
+      autoClose: 3000,
+    });
     console.log('error', error);
   }
 });
@@ -61,6 +69,10 @@ export const fetchCurrentUser = createAsyncThunk(
       const { data } = await axios.get('/users/current');
       return data;
     } catch (error) {
+      toast.error(`${error.message}`, {
+        position: 'top-center',
+        autoClose: 3000,
+      });
       console.log('error', error);
     }
   }

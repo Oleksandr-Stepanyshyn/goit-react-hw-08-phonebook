@@ -13,7 +13,7 @@ export default function HomeView() {
   ) : (
     <Title>
       Welcome to your personal phone book. Please{' '}
-      <LinkSpan to="/regiSpan">register</LinkSpan> or{' '}
+      <LinkSpan to="/register">register</LinkSpan> or{' '}
       <LinkSpan to="/login">login</LinkSpan>.
     </Title>
   );

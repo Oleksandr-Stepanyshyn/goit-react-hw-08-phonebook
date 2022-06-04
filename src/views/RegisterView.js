@@ -128,7 +128,15 @@ export default function RegisterView() {
           >
             Register
           </Button>
-          <Grid container justifyContent="flex-end">
+          <Grid
+            container
+            justifyContent="flex-end"
+            sx={{
+              '&:hover': {
+                color: '#1976d2',
+              },
+            }}
+          >
             <Grid item>
               <Link to="/login">Already have an account? Login</Link>
             </Grid>

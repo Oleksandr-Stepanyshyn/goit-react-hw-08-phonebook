@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -45,7 +44,6 @@ export default function RegisterView() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
@@ -66,80 +64,62 @@ export default function RegisterView() {
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 3 }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="name"
-                name="name"
-                required
-                fullWidth
-                id="name"
-                label="Name"
-                autoFocus
-                {...register('name', { required: 'Name required' })}
-              />
-            </Grid>
+          <TextField
+            error={errors.name?.type === 'required'}
+            autoComplete="name"
+            margin="normal"
+            required
+            fullWidth
+            type="text"
+            id="name"
+            label="Name"
+            autoFocus
+            helperText={errors.name?.message}
+            {...register('name', { required: 'Name is required' })}
+          />
 
-            {errors.name?.message === 'Name required' && (
-              <Grid
-                container
-                justifyContent="flex-start"
-                paddingLeft="20px"
-                color="red"
-              >
-                {errors.name?.message}
-              </Grid>
-            )}
+          <TextField
+            error={
+              errors.email?.type === 'pattern' ||
+              errors.email?.type === 'required'
+            }
+            required
+            margin="normal"
+            fullWidth
+            type="email"
+            id="email"
+            label="Email Address"
+            autoComplete="email"
+            helperText={errors.email?.message}
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value:
+                  /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/,
+                message: 'Invalid email',
+              },
+            })}
+          />
 
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                {...register('email', { required: 'Email required' })}
-              />
-            </Grid>
+          <TextField
+            error={
+              errors.password?.type === 'required' ||
+              errors.password?.type === 'minLength'
+            }
+            margin="normal"
+            required
+            fullWidth
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="new-password"
+            helperText={errors.password?.message}
+            {...register('password', {
+              required: 'Password is required',
+              minLength: { value: 7, message: 'Min length 7' },
+            })}
+          />
 
-            {errors.email?.message === 'Email required' && (
-              <Grid
-                container
-                justifyContent="flex-start"
-                paddingLeft="20px"
-                color="red"
-              >
-                {errors.email?.message}
-              </Grid>
-            )}
-
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                {...register('password', {
-                  required: 'Password required',
-                })}
-              />
-            </Grid>
-
-            {errors.password?.message === 'Password required' && (
-              <Grid
-                container
-                justifyContent="flex-start"
-                paddingLeft="20px"
-                color="red"
-              >
-                {errors.password?.message}
-              </Grid>
-            )}
-          </Grid>
           <Button
             type="submit"
             fullWidth

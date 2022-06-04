@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -28,6 +29,10 @@ export const logIn = createAsyncThunk('auth/login', async credentials => {
     token.set(data.token);
     return data;
   } catch (error) {
+    toast.error(`Incorrect login or password`, {
+      position: 'top-center',
+      autoClose: 3000,
+    });
     console.log('error', error);
   }
 });

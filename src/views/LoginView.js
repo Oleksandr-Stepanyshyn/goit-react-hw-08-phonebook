@@ -28,25 +28,21 @@ function Copyright(props) {
 }
 
 export default function LoginView() {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = data => {
-    // event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // const user = {
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // };
-    // console.log(user);
     dispatch(authOperations.logIn(data));
     reset();
   };
 
   return (
-    // <ThemeProvider theme={theme}>
     <Container component="div" maxWidth="xs">
-      {/* <CssBaseline /> */}
       <Box
         sx={{
           marginTop: 8,
@@ -68,27 +64,40 @@ export default function LoginView() {
           sx={{ mt: 1 }}
         >
           <TextField
+            error={
+              errors.email?.type === 'pattern' ||
+              errors.email?.type === 'required'
+            }
             margin="normal"
             required
             fullWidth
             id="email"
             label="Email Address"
-            name="email"
             autoComplete="email"
             autoFocus
-            {...register('email', { required: 'this field required' })}
+            helperText={errors.email?.message}
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value:
+                  /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/,
+                message: 'Invalid email',
+              },
+            })}
           />
           <TextField
+            error={errors.password?.message === 'Password is required'}
             margin="normal"
             required
             fullWidth
-            name="password"
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
-            {...register('password', { required: 'this field required' })}
+            helperText={errors.password?.message}
+            {...register('password', { required: 'Password is required' })}
           />
+
           <Button
             type="submit"
             fullWidth
@@ -106,6 +115,5 @@ export default function LoginView() {
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
-    // </ThemeProvider>
   );
 }

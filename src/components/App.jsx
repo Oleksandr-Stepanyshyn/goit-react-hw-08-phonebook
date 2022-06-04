@@ -1,14 +1,14 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { authOperations, authSelectors } from 'redux/auth';
-// import { ContactsView } from 'views/ContactsView';
-// import { HomeView } from 'views/HomeView';
-// import { LoginView } from 'views/LoginView';
-// import { RegisterView } from 'views/RegisterView';
+import { GlobalStyle } from './GlobalStyle';
 import { AppBar } from './AppBar/AppBar';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PrivateRoute';
+import { Loader } from './Loader/Loader';
 
 const HomeView = lazy(() => import('views/HomeView'));
 const RegisterView = lazy(() => import('views/RegisterView'));
@@ -28,9 +28,10 @@ export const App = () => {
   return (
     !isFetchingCurrentUser && (
       <>
+        <GlobalStyle />
         <AppBar />
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader />}>
           <Routes>
             <Route
               path="/"
@@ -66,6 +67,7 @@ export const App = () => {
             />
           </Routes>
         </Suspense>
+        <ToastContainer />
       </>
     )
   );

@@ -37,5 +37,5 @@ export const useContacts = () => {
     );
   }, [contacts, filter]);
 
-  return { filter, setFilter, filteredContacts, addContact };
+  return { filter, setFilter, contacts, filteredContacts, addContact };
 };

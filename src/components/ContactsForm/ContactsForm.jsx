@@ -65,6 +65,8 @@ const style = {
 };
 
 export const ContactsForm = ({ textBtn, handleClose }) => {
+  const mobileScreen = window.screen.width < 768;
+
   const {
     register,
     handleSubmit,
@@ -79,7 +81,7 @@ export const ContactsForm = ({ textBtn, handleClose }) => {
     addContact(data);
 
     reset();
-    handleClose();
+    mobileScreen && handleClose();
   };
 
   return (

@@ -4,20 +4,23 @@ import { useContacts } from 'hooks/useContacts';
 import { Card, Contacts, List } from './ContactsList.styled';
 
 export const ContactsList = () => {
-  const { filter, setFilter, filteredContacts } = useContacts();
+  const { filter, contacts, setFilter, filteredContacts } = useContacts();
+  const showList = contacts.length > 0;
 
   return (
-    <Contacts>
-      <Filter setFilter={setFilter} filter={filter} />
-      <List>
-        {filteredContacts.map(contact => {
-          return (
-            <Card key={contact.id}>
-              <ContactCard contact={contact} />
-            </Card>
-          );
-        })}
-      </List>
-    </Contacts>
+    showList && (
+      <Contacts>
+        <Filter setFilter={setFilter} filter={filter} />
+        <List>
+          {filteredContacts.map(contact => {
+            return (
+              <Card key={contact.id}>
+                <ContactCard contact={contact} />
+              </Card>
+            );
+          })}
+        </List>
+      </Contacts>
+    )
   );
 };

@@ -2,12 +2,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { authOperations, authSelectors } from 'redux/auth';
 import { GlobalStyle } from './GlobalStyle';
 import { AppBar } from './AppBar/AppBar';
 import { PrivateRoute } from './PrivateRoute';
-import { PublicRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 import { Loader } from './Loader/Loader';
 
 const HomeView = lazy(() => import('views/HomeView'));
@@ -16,6 +16,7 @@ const LoginView = lazy(() => import('views/LoginView'));
 const ContactsView = lazy(() => import('views/ContactsView'));
 
 export const App = () => {
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   const dispatch = useDispatch();
   const isFetchingCurrentUser = useSelector(
     authSelectors.getIsFetchingCurrentUser
@@ -64,6 +65,10 @@ export const App = () => {
                   <ContactsView />
                 </PrivateRoute>
               }
+            />
+            <Route
+              path="*"
+              element={<Navigate to={isLoggedIn ? '/contacts' : '/login'} />}
             />
           </Routes>
         </Suspense>

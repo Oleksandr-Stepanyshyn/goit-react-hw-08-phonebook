@@ -4,13 +4,13 @@ import BasicModal from 'components/BasicModal/BasicModal';
 import { ContactsContainer, Container, Main } from 'components/Views.styled';
 
 export default function ContactsView() {
-  const screenWidth = window.screen.width;
+  const mobileScreen = window.screen.width < 768;
 
   return (
     <Main>
       <Container>
         <ContactsContainer>
-          {screenWidth < 768 ? (
+          {mobileScreen ? (
             <BasicModal textBtn={'Add contact'} />
           ) : (
             <ContactsForm textBtn={'Add contact'} />

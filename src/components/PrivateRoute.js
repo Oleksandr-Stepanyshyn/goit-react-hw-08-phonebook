@@ -7,14 +7,3 @@ export const PrivateRoute = ({ redirectTo = '/login', children }) => {
 
   return isLoggedIn ? children : <Navigate to={redirectTo} />;
 };
-
-export const PublicRoute = ({
-  redirectTo = '/',
-  children,
-  restricted = false,
-}) => {
-  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
-  const shouldRedirect = isLoggedIn && restricted;
-
-  return shouldRedirect ? <Navigate to={redirectTo} /> : children;
-};

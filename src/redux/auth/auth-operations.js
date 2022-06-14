@@ -78,10 +78,6 @@ export const fetchCurrentUser = createAsyncThunk(
       const { data } = await axios.get('/users/current');
       return data;
     } catch (error) {
-      toast.error(`${error.message}`, {
-        position: 'top-center',
-        autoClose: 3000,
-      });
       return rejectWithValue(error.message);
     }
   }
